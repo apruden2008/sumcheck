@@ -1,34 +1,40 @@
+from field_element import FieldElement
+
 # Logic defining a polynomial object built from finite field elements
 
 class Polynomial:
     """Define a polynomial object from field elements"""
 
-    def __init__(self, coefficients, prime):
+    def __init__(self, coefficients):
         """
         Initialize a Polynomial object.
 
         Parameters:
-        coefficients (list of FieldElement): A list of FieldElement objects representing the coefficients
-                                             of the polynomial. The i-th element corresponds to the coefficient
-                                             of x^i.
+            coefficients (list of FieldElement): A list of FieldElement objects representing the coefficients
+                                                 of the polynomial. The i-th element corresponds to the coefficient
+                                                 of x^i.
+            **Note, this assumes that the number of coefficients == the degree of the polynomial
 
         Raises:
-        ValueError: If any of the coefficients are not instances of FieldElement.
-        ValueError: If coefficients have different moduli.
+            ValueError: If any of the coefficients are not instances of FieldElement.
+            ValueError: If coefficients have different moduli.
 
         Attributes:
-        coefficients (list of FieldElement): The list of coefficients of the polynomial.
-        modulus (int): The prime modulus of the field in which the polynomial operates, inferred from the coefficients.
+            coefficients (list of FieldElement): The list of coefficients of the polynomial.
+            modulus (int): The prime modulus of the field in which the polynomial operates, inferred from the coefficients.
         """
         if not all(isinstance(coef, FieldElement) for coef in coefficients):
             raise ValueError("All coefficients must be FieldElements.")
         self.coefficients = coefficients
-        self.modulus = coefficients[0].modulus  # TODO make this into an actual test
-
-        self.coefficients = [FieldElement(c, prime) for c in coefficients]
-        self.prime = prime
+        self.modulus = coefficients[0].prime  # TODO make this into an actual test
 
     def __eval__(self, x):
+        """
+        Return an evaluation of the polynomial at a given point
+
+        Returns: 
+            The result as a Field Element from a given evaluation of a polynomial
+        """
 
         result = FieldElement(0, self.prime)
         x = FieldElement(x, self.prime)  # Convert x to a FieldElement
@@ -41,7 +47,7 @@ class Polynomial:
         Return a string representation of the Polynomial object.
 
         Returns:
-        str: A string representing the polynomial in the form of "coef*x^i + ...".
+            str: A string representing the polynomial in the form of "coef*x^i + ...".
         """
         terms = []
         for i, coeff in enumerate(self.coefficients):
@@ -53,7 +59,7 @@ class Polynomial:
         Return the degree of the polynomial.
 
         Returns:
-        int: The degree of the polynomial, which is the highest power of x with a non-zero coefficient.
+            int: The degree of the polynomial, which is the highest power of x with a non-zero coefficient.
         """
         return len(self.coefficients) - 1
 
