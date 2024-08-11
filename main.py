@@ -1,5 +1,6 @@
 from field_element import FieldElement
 from polynomial import Polynomial
+from prover import Prover
 
 def main():
 
@@ -32,18 +33,25 @@ def main():
     # Take user input for polynomial degree
     test_modulus = 7
     test_field_elements = [FieldElement(1, test_modulus),
-                           FieldElement(-2, test_modulus),
+                           FieldElement(2, test_modulus),
                            FieldElement(3, test_modulus)]
 
-    for elem in test_field_elements:
-        print(isinstance(elem, FieldElement)) 
-    if not all(isinstance(elem, FieldElement) for elem in test_field_elements):
-        print("no")
     test_poly = Polynomial(test_field_elements)
+    print("testing polynomial methods\n")
+    print(test_poly.degree())
     print(str(test_poly))
     print(repr(test_poly))
-    print(test_poly.evaluate(5))
+    print(test_poly.evaluate(4))
+    print("#########\n")
+
+    print("testing prover methods\n")
+    test_prover = Prover(test_poly)
+    claimed_value = test_prover.evaluate_polynomial(4) 
+    print(claimed_value)
+    hypercube_points = test_prover.get_hypercube_points()
+    for point in hypercube_points:
+        print(point)
+
 if __name__ == '__main__':
     main()
-
 
