@@ -26,9 +26,30 @@ class Polynomial:
         if not all(isinstance(coef, FieldElement) for coef in coefficients):
             raise ValueError("All coefficients must be FieldElements.")
         self.coefficients = coefficients
-        self.modulus = coefficients[0].prime  # TODO make this into an actual test
+        self.prime = coefficients[0].prime  # TODO make this into an actual test
 
-    def __eval__(self, x):
+    def __repr__(self):
+        """
+        Return a detailed string representation of the Polynomial object.
+
+        Returns:
+            str: A string representing the internal structure of the Polynomial, for debugging.
+        """
+        return f"Polynomial(coefficients={self.coefficients})"
+
+    def __str__(self):
+        """
+        Return a user-friendly string representation of the Polynomial object.
+
+        Returns:
+            str: A string representing the polynomial in the form of "coef*x^i + ...".
+        """
+        terms = []
+        for i, coeff in enumerate(self.coefficients):
+            terms.append(f"{coeff}*x^{i}")
+        return " + ".join(terms)
+
+    def evaluate(self, x):
         """
         Return an evaluation of the polynomial at a given point
 
@@ -41,18 +62,6 @@ class Polynomial:
         for i, coeff in enumerate(self.coefficients):
             result += coeff * (x ** i)
         return result
-
-    def __repr__(self):
-        """
-        Return a string representation of the Polynomial object.
-
-        Returns:
-            str: A string representing the polynomial in the form of "coef*x^i + ...".
-        """
-        terms = []
-        for i, coeff in enumerate(self.coefficients):
-            terms.append(f"{coeff}*x^{i}")
-        return " + ".join(terms)
 
     def degree(self):
         """
