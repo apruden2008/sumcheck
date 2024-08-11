@@ -1,32 +1,27 @@
-from field_element import FieldElement
+from term import Term
 
 # Logic defining a polynomial object built from finite field elements
 
 class Polynomial:
     """Define a polynomial object from field elements"""
 
-    def __init__(self, coefficients):
+    def __init__(self, terms):
         """
-        Initialize a Polynomial object.
+        Initialize a Polynomial object
 
         Parameters:
-            coefficients (list of FieldElement): A list of FieldElement objects representing the coefficients
-                                                 of the polynomial. The i-th element corresponds to the coefficient
-                                                 of x^i.
-            **Note, this assumes that the number of coefficients == the degree of the polynomial
+            terms (list of Terms): A list of Term objects representing terms of the polynomial. 
 
         Raises:
-            ValueError: If any of the coefficients are not instances of FieldElement.
-            ValueError: If coefficients have different moduli.
+            ValueError: If any of the terms are not instances of a Term
 
         Attributes:
-            coefficients (list of FieldElement): The list of coefficients of the polynomial.
-            modulus (int): The prime modulus of the field in which the polynomial operates, inferred from the coefficients.
+            terms: a list of terms that make up the polynomial
         """
-        if not all(isinstance(coef, FieldElement) for coef in coefficients):
-            raise ValueError("All coefficients must be FieldElements.")
-        self.coefficients = coefficients
-        self.prime = coefficients[0].prime  # TODO make this into an actual test
+        if not all(isinstance(tm, Term) for tm in terms):
+            raise ValueError("All coefficients must be Terms.")
+        self.terms = terms
+        self.prime = terms[0].coefficient.prime  # TODO make this into an actual test
 
     def __repr__(self):
         """
@@ -35,7 +30,7 @@ class Polynomial:
         Returns:
             str: A string representing the internal structure of the Polynomial, for debugging.
         """
-        return f"Polynomial(coefficients={self.coefficients})"
+        return f"Polynomial(terms={self.terms})"
 
     def __str__(self):
         """
@@ -45,8 +40,8 @@ class Polynomial:
             str: A string representing the polynomial in the form of "coef*x^i + ...".
         """
         terms = []
-        for i, coeff in enumerate(self.coefficients):
-            terms.append(f"{coeff}*x^{i}")
+        for i, term in enumerate(self.terms):
+            terms.append(f"{term}")
         return " + ".join(terms)
 
     def evaluate(self, x):

@@ -1,5 +1,6 @@
 from field_element import FieldElement
 from polynomial import Polynomial
+from term import Term
 from prover import Prover
 
 def main():
@@ -31,26 +32,31 @@ def main():
     # print(f"The result of adding {fe1} and {fe2} is: {result}")
 
     # Take user input for polynomial degree
+
     test_modulus = 7
     test_field_elements = [FieldElement(1, test_modulus),
                            FieldElement(2, test_modulus),
                            FieldElement(3, test_modulus)]
 
-    test_poly = Polynomial(test_field_elements)
+    test_terms = [Term(test_field_elements[0], 1, 1), 
+                  Term(test_field_elements[1], 2, 1),
+                  Term(test_field_elements[2], 3, 1)]
+    
+    test_poly = Polynomial(test_terms)
     print("testing polynomial methods\n")
-    print(test_poly.degree())
+    # print(test_poly.degree())
     print(str(test_poly))
     print(repr(test_poly))
-    print(test_poly.evaluate(4))
+    # print(test_poly.evaluate(4))
     print("#########\n")
 
-    print("testing prover methods\n")
-    test_prover = Prover(test_poly)
-    claimed_value = test_prover.evaluate_polynomial(4) 
-    print(claimed_value)
-    hypercube_points = test_prover.get_hypercube_points()
-    for point in hypercube_points:
-        print(point)
+    # print("testing prover methods\n")
+    # test_prover = Prover(test_poly)
+    # claimed_value = test_prover.evaluate_polynomial(4) 
+    # print(claimed_value)
+    # hypercube_points = test_prover.get_hypercube_points()
+    # for point in hypercube_points:
+    #     print(point)
 
 if __name__ == '__main__':
     main()

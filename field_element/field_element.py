@@ -147,3 +147,14 @@ class FieldElement:
         """
         return f"FieldElement({self.value}, {self.prime})"
 
+    def value(self): 
+        """
+        Return the value of the field element as an integer
+        """
+        return int(self.value)
+
+    def prime(self):
+        """
+        Return the value of the prime modulus as an integer
+        """
+        return int(self.prime)
