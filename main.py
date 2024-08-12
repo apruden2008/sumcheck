@@ -33,24 +33,7 @@ def main():
 
     # Take user input for polynomial degree
 
-    test_modulus = 7
-    test_field_elements = [FieldElement(1, test_modulus),
-                           FieldElement(2, test_modulus),
-                           FieldElement(3, test_modulus)]
-
-    test_terms = [Term(test_field_elements[0], 1, 3), 
-                  Term(test_field_elements[1], 2, 1),
-                  Term(test_field_elements[2], 3, 1)]
-
-    test_points_vector = [2,2,3]
-    print(test_terms[0].evaluate(3))
-    test_poly = Polynomial(test_terms)
-    print("testing polynomial methods\n")
-    print(test_poly.degree())
-    print(str(test_poly))
-    print(repr(test_poly))
     print(test_poly.evaluate(test_points_vector))
-    print("#########\n")
 
     # print("testing prover methods\n")
     # test_prover = Prover(test_poly)
