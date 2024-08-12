@@ -62,7 +62,10 @@ class Polynomial:
 
         result = FieldElement(0, self.prime)
         for i, term in enumerate(self.terms):
-            result += term.evaluate(points[i])
+            if term.var_number == 0:
+                result += term
+            else:
+                result += term.evaluate(points[i])
         return result
 
     def degree(self):

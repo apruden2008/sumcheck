@@ -70,4 +70,6 @@ class Term:
         Evaluate the term at a given point
         """
         point = FieldElement(point, self.coefficient.prime)
+        if self.var_number == 0:
+            return self.coefficient
         return self.coefficient * point**self.var_exponent
