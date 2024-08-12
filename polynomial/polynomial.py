@@ -57,13 +57,19 @@ class Polynomial:
         for i, coeff in enumerate(self.coefficients):
             result += coeff * (x ** i)
         return result
+        # evaluate each term
+        # then sum them
 
     def degree(self):
         """
         Return the degree of the polynomial.
 
         Returns:
-            int: The degree of the polynomial, which is the highest power of x with a non-zero coefficient.
+            int: The degree of the polynomial, which is the highest exponent of x with a non-zero coefficient.
         """
-        return len(self.coefficients) - 1
+        degree = 0
+        for tm in self.terms:
+            if tm.var_exponent > degree:
+                degree = tm.var_exponent
+        return degree 
 

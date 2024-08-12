@@ -38,13 +38,14 @@ def main():
                            FieldElement(2, test_modulus),
                            FieldElement(3, test_modulus)]
 
-    test_terms = [Term(test_field_elements[0], 1, 1), 
+    test_terms = [Term(test_field_elements[0], 1, 3), 
                   Term(test_field_elements[1], 2, 1),
                   Term(test_field_elements[2], 3, 1)]
-    
+
+    print(test_terms[0].evaluate(2))
     test_poly = Polynomial(test_terms)
     print("testing polynomial methods\n")
-    # print(test_poly.degree())
+    print(test_poly.degree())
     print(str(test_poly))
     print(repr(test_poly))
     # print(test_poly.evaluate(4))
