@@ -26,7 +26,7 @@ class Term:
         # if not(isinstance(coefficient, FieldElement)):
             # raise ValueError("Coefficient must be a FieldElement.")
         self.coefficient = coefficient
-        if var_number <= 0:
+        if var_number < 0:
             raise ValueError("Variable number must be greater than zero.")
         self.var_number = int(var_number)
         if var_exponent > 10 & var_exponent <0: 
@@ -35,7 +35,7 @@ class Term:
 
     def __repr__(self): 
         """
-        Return a detailed string representation of the Polynomial object.
+        Return a detailed string representation of the Term object.
 
         Returns:
             str: A string representing the internal structure of the Term, for debugging.
@@ -49,6 +49,8 @@ class Term:
         Returns:
             str: A string representing the term in the form of "coef*(x_var_number)^var_exponent".
         """
+        if self.var_number == 0:
+            return f"{self.coefficient}"
         return f"{self.coefficient}*(x_{self.var_number})^{self.var_exponent}"
 
     def coefficient(self):

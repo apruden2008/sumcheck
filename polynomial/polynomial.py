@@ -43,7 +43,10 @@ class Polynomial:
         """
         terms = []
         for i, term in enumerate(self.terms):
-            terms.append(f"{term}")
+            if term.var_number == 0:
+                terms.append(f"{term.coefficient}")
+            else:
+                terms.append(f"{term}")
         return " + ".join(terms)
 
     def evaluate(self, points):
