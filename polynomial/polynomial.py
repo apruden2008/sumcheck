@@ -1,6 +1,8 @@
+from field_element import FieldElement
 from term import Term
 
 # Logic defining a polynomial object built from finite field elements
+# TODO improve this with decorators
 
 class Polynomial:
     """Define a polynomial object from field elements"""
@@ -44,21 +46,21 @@ class Polynomial:
             terms.append(f"{term}")
         return " + ".join(terms)
 
-    def evaluate(self, x):
+    def evaluate(self, points):
         """
         Return an evaluation of the polynomial at a given point
+
+        Parameters:
+            points: a list of points to evaluate, equal to the number of variables
 
         Returns: 
             The result as a Field Element from a given evaluation of a polynomial
         """
 
         result = FieldElement(0, self.prime)
-        x = FieldElement(x, self.prime)  # Convert x to a FieldElement
-        for i, coeff in enumerate(self.coefficients):
-            result += coeff * (x ** i)
+        for i, term in enumerate(self.terms):
+            result += term.evaluate(points[i])
         return result
-        # evaluate each term
-        # then sum them
 
     def degree(self):
         """

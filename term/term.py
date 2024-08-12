@@ -1,6 +1,7 @@
 from field_element import FieldElement
 
 # Define a term class
+# TODO improve this with decorators
 
 class Term:
     """Define a term, which is the combination of Field Element and variable"""

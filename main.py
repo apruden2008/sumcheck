@@ -42,13 +42,14 @@ def main():
                   Term(test_field_elements[1], 2, 1),
                   Term(test_field_elements[2], 3, 1)]
 
-    print(test_terms[0].evaluate(2))
+    test_points_vector = [2,2,3]
+    print(test_terms[0].evaluate(3))
     test_poly = Polynomial(test_terms)
     print("testing polynomial methods\n")
     print(test_poly.degree())
     print(str(test_poly))
     print(repr(test_poly))
-    # print(test_poly.evaluate(4))
+    print(test_poly.evaluate(test_points_vector))
     print("#########\n")
 
     # print("testing prover methods\n")
