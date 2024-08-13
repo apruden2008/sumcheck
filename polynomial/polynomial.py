@@ -59,12 +59,15 @@ class Polynomial:
         Returns: 
             The result as a Field Element from a given evaluation of a polynomial
         """
-
         result = FieldElement(0, self.prime)
-        for i, term in enumerate(self.terms):
-            if term.var_number == 0:
-                result += term
-            else:
+        # constant term must be passed first
+        if self.terms[0].var_number == 0:
+            constant_term = self.terms[0]
+            result += constant_term.coefficient
+            for i, term in enumerate(self.terms):
+                result += term.evaluate(points[i-1]) # more terms than variables
+        else:
+            for i, term in enumerate(self.terms):
                 result += term.evaluate(points[i])
         return result
 

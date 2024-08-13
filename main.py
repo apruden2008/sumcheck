@@ -14,9 +14,10 @@ def main():
     # Query the user for a constant term, if it exists
     poly_const = int(input("What is the constant term? If none, input '0': "))
 
-    # Initialize a list for polynomial terms
-    poly_terms = []
+    # Initialize a list for polynomial terms with the constant
+    poly_terms = [(Term(FieldElement(poly_const, field_modulus), 0, 0))]
 
+    # Generate the Polynomial object from the poly_terms list
     # Iterate through the (non-constant) terms of the polynomial and convert the coefficients to field elements
     # Then, convert those field elements & exponents into a full term, and append to the poly_terms list
     for i in range(term_count):
@@ -37,17 +38,12 @@ def main():
         # Add the terms to the list defined above
         poly_terms.append(pt)
     
-    # Add the constant term to the poly_terms list
-    poly_terms.append(Term(FieldElement(poly_const, field_modulus), 0, 0))
-
-    # Generate the Polynomial object from the poly_terms list
     poly = Polynomial(poly_terms)
 
     # Print the polynomial string representation to the console
     print("Your polynomial is: \n")
     print(str(poly))
 
-    # TODO fix this, it is evaluating x_0 as the constant term and it should not be
     points_list = [2,1]
     # Query user for evaluation input
     # for i in range(term_count):
