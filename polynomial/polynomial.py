@@ -64,8 +64,11 @@ class Polynomial:
         if self.terms[0].var_number == 0:
             constant_term = self.terms[0]
             result += constant_term.coefficient
-            for i, term in enumerate(self.terms):
-                result += term.evaluate(points[i-1]) # more terms than variables
+            # I think I need to fast forward to the second term here
+            # Drop the constant term 
+            new_terms = self.terms[1:]
+            for i, term in enumerate(new_terms):
+                result += term.evaluate(points[i]) # more terms than variables
         else:
             for i, term in enumerate(self.terms):
                 result += term.evaluate(points[i])
