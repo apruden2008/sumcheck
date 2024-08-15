@@ -87,3 +87,12 @@ class Polynomial:
                 degree = tm.var_exponent
         return degree 
 
+    def dims(self):
+
+        """
+        Return the degree of the polynomial.
+
+        Returns:
+            int: The number of indeterminate variables in the polynomial
+        """
+        return len(self.terms)

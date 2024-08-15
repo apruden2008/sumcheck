@@ -29,7 +29,7 @@ class FieldElement:
         assert is_prime(prime) == True, "Value is not prime"
         self.value = value
         self.prime = prime
-        # TODO need to handle the negative numbers
+        # TODO need to handle the negative numbers try with the mod operator
 
     def __add__(self, other):
         """

@@ -7,55 +7,41 @@ import pdb
 
 class TestPolynomial(unittest.TestCase):
     
-    def test_evaluation(self):
-        test_modulus = 7
-        test_field_elements = [FieldElement(1, test_modulus),
-                               FieldElement(1, test_modulus),
-                               FieldElement(2, test_modulus),
-                               FieldElement(3, test_modulus)]
-        test_terms = [Term(test_field_elements[0], 0, 0), 
-                      Term(test_field_elements[1], 1, 1),
-                      Term(test_field_elements[2], 2, 1),
-                      Term(test_field_elements[3], 3, 1)]
-        test_points_vector = [3,2,2]
-        test_poly = Polynomial(test_terms)
+    def setUp(self):
+        self.test_modulus = 7
+        self.test_field_elements = [FieldElement(1, self.test_modulus),
+                               FieldElement(1, self.test_modulus),
+                               FieldElement(2, self.test_modulus),
+                               FieldElement(3, self.test_modulus)]
+        self.test_terms = [Term(self.test_field_elements[0], 0, 0), 
+                      Term(self.test_field_elements[1], 1, 1),
+                      Term(self.test_field_elements[2], 2, 4),
+                      Term(self.test_field_elements[3], 3, 1)]
+        self.test_points_vector = [3,2,2]
         # 1 + 1(2) + 2(2) + 3(2)
-        # pdb.set_trace()
+
+    def test_evaluation(self):
+        test_poly = Polynomial(self.test_terms)
         print(str(test_poly))
-        result = test_poly.evaluate(test_points_vector)
+        result = test_poly.evaluate(self.test_points_vector)
         self.assertEqual(result, FieldElement(0, 7))
         print(str(result))
 
-    def test_degree(self):
-        test_modulus = 7
-        test_field_elements = [FieldElement(1, test_modulus),
-                               FieldElement(2, test_modulus),
-                               FieldElement(3, test_modulus)]
-        test_terms = [Term(test_field_elements[0], 1, 3), 
-                      Term(test_field_elements[1], 2, 1),
-                      Term(test_field_elements[2], 3, 1)]
-        test_points_vector = [2,2,3]
-        test_poly = Polynomial(test_terms)
-
-        result = test_poly.degree()
-        self.assertEqual(result, 3)
-        # print(str(result))
-
     def test_zero_evaluation(self):
-        test_modulus = 13
-        test_field_elements = [FieldElement(4, test_modulus),
-                               FieldElement(12, test_modulus),
-                               FieldElement(3, test_modulus)]
-        test_constant_term = FieldElement(5, test_modulus)
-        # Term(coefficient, var_number, var_power)
-        test_terms = [Term(test_constant_term, 0, 1),
-                      Term(test_field_elements[0], 1, 3), 
-                      Term(test_field_elements[1], 2, 1),
-                      Term(test_field_elements[2], 3, 1)]
-        test_points_vector = [0,0,0]
-        test_poly = Polynomial(test_terms)
-        result = test_poly.evaluate(test_points_vector)
-        self.assertEqual(result, test_constant_term)
+        test_zero_vector = [0,0,0]
+        test_poly = Polynomial(self.test_terms)
+        result = test_poly.evaluate(test_zero_vector)
+        self.assertEqual(result, self.test_field_elements[0])
+
+    def test_degree(self):
+        test_poly = Polynomial(self.test_terms)
+        result = test_poly.degree()
+        self.assertEqual(result, 4)
+
+    def test_dims(self):
+        test_poly = Polynomial(self.test_terms)
+        result = test_poly.dims()
+        self.assertEqual(result, len(self.test_terms))
 
 if __name__ == '__main__':
     unittest.main()

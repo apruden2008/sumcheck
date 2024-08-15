@@ -37,10 +37,13 @@ class Prover:
         """
         Generate all points in the Boolean hypercube {0, 1}^n.
 
+        Parameters:
+            dim: the dimension of the hypercube, aka the number of unique variables
 
-        :param n: The dimension of the hypercube.
-        :return: A generator of all points in the Boolean hypercube.
+        Returns: 
+            A generator of all points in the Boolean hypercube.
         """
+
         n = self.polynomial.degree()
 
         for i in range(2**n):
