@@ -41,16 +41,22 @@ def main():
     poly = Polynomial(poly_terms)
 
     # Print the polynomial string representation to the console
+
     print("Your polynomial is: \n")
     print(str(poly))
 
-    points_list = [2,1]
-    # Query user for evaluation input
-    # for i in range(term_count):
-    #     eval_point = int(input(f"Enter the point would you like to evaluate this polynomial at for variable x_{i}: "))
-    #     points_list.append(eval_point)
-    print(points_list)
-    print(poly.evaluate(points_list))
+    # Initialize a list that 
+    eval_point = []
+    
+    # Query user for input on the evaluation point
+
+    for i in range(term_count):
+        # Query the user for the value of each variable in turn
+        value = int(input(f"Enter the value of the variable {i+1}: ")) % field_modulus
+        eval_point.append(value)
+    
+    print(eval_point)
+    print(poly.evaluate(eval_point))
 
 if __name__ == '__main__':
     main()

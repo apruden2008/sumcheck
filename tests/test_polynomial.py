@@ -17,12 +17,13 @@ class TestPolynomial(unittest.TestCase):
                       Term(test_field_elements[1], 1, 1),
                       Term(test_field_elements[2], 2, 1),
                       Term(test_field_elements[3], 3, 1)]
-        test_points_vector = [2,2,2]
+        test_points_vector = [3,2,2]
         test_poly = Polynomial(test_terms)
         # 1 + 1(2) + 2(2) + 3(2)
         # pdb.set_trace()
+        print(str(test_poly))
         result = test_poly.evaluate(test_points_vector)
-        self.assertEqual(result, FieldElement(3, 7))
+        self.assertEqual(result, FieldElement(0, 7))
         print(str(result))
 
     def test_degree(self):
