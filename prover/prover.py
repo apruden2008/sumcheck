@@ -44,7 +44,8 @@ class Prover:
             A generator of all points in the Boolean hypercube.
         """
 
-        n = self.polynomial.degree()
+        n = self.polynomial.dims()
+        print(n)
 
         for i in range(2**n):
             yield [int(x) for x in bin(i)[2:].zfill(n)]

@@ -35,7 +35,12 @@ class TestProver(unittest.TestCase):
 
     def test_evaluate(self):
         test_prover = Prover(self.test_poly)
-        result = test_prover.evaluate(test_point)
-        self.assertEqual(FieldElement(6, self.test_modulus, result))
+        result = test_prover.evaluate_polynomial(self.test_point)
+        self.assertEqual(FieldElement(6, self.test_modulus), result)
 
-    def test_
+    def test_gen_hypercube(self):
+        test_prover = Prover(self.test_poly)
+        hypercube_points = []
+        for point in test_prover.generate_hypercube_points():
+            hypercube_points.append(point)
+        print(hypercube_points)

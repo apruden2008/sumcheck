@@ -6,7 +6,7 @@ from polynomial.polynomial import Polynomial
 import pdb
 
 class TestPolynomial(unittest.TestCase):
-    
+# TODO refactor to treat the constant term separately in polynomial.py    
     def setUp(self):
         self.test_modulus = 7
         self.test_field_elements = [FieldElement(1, self.test_modulus),
@@ -41,7 +41,7 @@ class TestPolynomial(unittest.TestCase):
     def test_dims(self):
         test_poly = Polynomial(self.test_terms)
         result = test_poly.dims()
-        self.assertEqual(result, len(self.test_terms))
+        self.assertEqual(result, len(self.test_terms)-1) # one less because there is a constant, this could be more robust
 
 if __name__ == '__main__':
     unittest.main()
