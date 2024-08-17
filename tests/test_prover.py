@@ -44,3 +44,13 @@ class TestProver(unittest.TestCase):
         for point in test_prover.generate_hypercube_points():
             hypercube_points.append(point)
         print(hypercube_points)
+
+    def test_sum_hypercube(self):
+        test_prover = Prover(self.test_poly)
+        hypercube_points = test_prover.get_hypercube_points()
+        claimed_sum = test_prover.sum_hypercube()
+        self.assertEqual(FieldElement(4, self.test_modulus), claimed_sum)
+
+    def test_proof(self):
+        test_prover = Prover(self.test_poly)
+

@@ -1,3 +1,4 @@
+from field_element import FieldElement
 from polynomial import Polynomial
 
 # A prover class for the sumcheck protocol
@@ -52,10 +53,10 @@ class Prover:
     
     def get_hypercube_points(self):
         """
-        Get all of the generated Boolean hypercube points for polynomial
+        Getter for the generated Boolean hypercube points for the polynomial to be proven
 
         Returns:
-            we'll find out
+            Generator for the hypercube points for the given polynomial
         """
         return self.generate_hypercube_points()
 
@@ -63,11 +64,11 @@ class Prover:
         """
         Sum the polynomial over the Boolean hypercube {0, 1}^n.
 
-        :return: The sum over the Boolean hypercube.
+        Returns:
+            The sum of the evaluations of the polynomial over the Boolean hypercube
         """
-        n = len(self.polynomial.coefficients)
-        total_sum = 0
-        for point in self.generate_hypercube_points(n):
+        total_sum = FieldElement(0, self.polynomial.prime)
+        for point in self.generate_hypercube_points():
             total_sum += self.evaluate_polynomial(point)
         return total_sum
 

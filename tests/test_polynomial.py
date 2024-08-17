@@ -6,7 +6,6 @@ from polynomial.polynomial import Polynomial
 import pdb
 
 class TestPolynomial(unittest.TestCase):
-# TODO refactor to treat the constant term separately in polynomial.py    
     def setUp(self):
         self.test_modulus = 7
         self.test_field_elements = [FieldElement(1, self.test_modulus),
