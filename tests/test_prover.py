@@ -1,4 +1,5 @@
 import unittest
+import pdb
 from field_element.field_element import FieldElement
 from term.term import Term
 from polynomial.polynomial import Polynomial
@@ -43,7 +44,7 @@ class TestProver(unittest.TestCase):
         hypercube_points = []
         for point in test_prover.generate_hypercube_points():
             hypercube_points.append(point)
-        print(hypercube_points)
+        self.assertEqual([[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]], hypercube_points)
 
     def test_sum_hypercube(self):
         test_prover = Prover(self.test_poly)
@@ -54,3 +55,12 @@ class TestProver(unittest.TestCase):
     def test_proof(self):
         test_prover = Prover(self.test_poly)
 
+    def test_gen_partial_hypercube(self):
+        test_prover = Prover(self.test_poly)
+        for point in test_prover.generate_hypercube_points(1):
+            print(point)
+        for point in test_prover.generate_hypercube_points(2):
+            print(point)
+        with self.assertRaises(ValueError):
+            for point in test_prover.generate_hypercube_points(3):
+                print(point)

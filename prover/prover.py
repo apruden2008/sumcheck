@@ -34,19 +34,19 @@ class Prover:
         """
         return self.polynomial.evaluate(point)
 
-    def generate_hypercube_points(self):
+    def generate_hypercube_points(self, dims = 0):
         """
         Generate all points in the Boolean hypercube {0, 1}^n.
 
         Parameters:
-            dim: the dimension of the hypercube, aka the number of unique variables
+            dims_to_reduce: The number of dimensions over which to generate the Boolean hypercube
 
         Returns: 
             A generator of all points in the Boolean hypercube.
         """
-
-        n = self.polynomial.dims()
-        print(n)
+        if dims >= len(self.polynomial.terms):
+            raise ValueError("Cannot reduce to less dimensions than variables")
+        n = self.polynomial.dims() - dims
 
         for i in range(2**n):
             yield [int(x) for x in bin(i)[2:].zfill(n)]
@@ -75,6 +75,9 @@ class Prover:
     def send_claimed_sum(self):
         """
         Prover sends the claimed sum (S) to the Verifier.
+
+        Returns:
+            The sum over the boolean hypercube for a given Polynomial to be sent to the verifier
         """
         return self.sum_hypercube()
 
@@ -82,8 +85,11 @@ class Prover:
         """
         Prover sends the univariate polynomial to the Verifier after fixing one variable.
 
-        :param fixed_variable: The variable that is fixed (0 or 1).
-        :return: A new Polynomial object with one variable fixed.
+        Parameters:
+            fixed_variable: The variable that is fixed (0 or 1).
+
+        Returns:
+            A new Polynomial object with one variable fixed.
         """
         # Create a univariate polynomial by fixing one variable
         fixed_poly = self.polynomial.fix_variable(fixed_variable)
