@@ -81,6 +81,24 @@ class Prover:
         """
         return self.sum_hypercube()
 
+    def generate_univariate_polynomial(self, variable):
+        """
+        Prover chooses one variable to leave free and generates a new univariate polynomial by evaluating other variables over boolean hypercube
+
+        Parameters:
+            variable: the variable in the multivariate polynomial to be left free
+
+        Returns:
+            A new Polynomial object with a single variable
+        """
+        if variable <= 0 or variable > len(self.polynomial.terms):
+            raise ValueError("Cannot create a univariate polynomial from a term that doesn't exist. Please check the variable number argument and try again")
+        for term in self.polynomial.terms:
+            if term.var_number == variable:
+                return term # test
+        # return new_polynomial
+
+        
     def send_univariate_polynomial(self, fixed_variable):
         """
         Prover sends the univariate polynomial to the Verifier after fixing one variable.
@@ -89,9 +107,6 @@ class Prover:
             fixed_variable: The variable that is fixed (0 or 1).
 
         Returns:
-            A new Polynomial object with one variable fixed.
+            A new Polynomial object with one variable fixed
         """
-        # Create a univariate polynomial by fixing one variable
-        fixed_poly = self.polynomial.fix_variable(fixed_variable)
-        return fixed_poly
 

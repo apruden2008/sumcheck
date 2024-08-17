@@ -64,3 +64,13 @@ class TestProver(unittest.TestCase):
         with self.assertRaises(ValueError):
             for point in test_prover.generate_hypercube_points(3):
                 print(point)
+
+    def test_return_fixed_polynomial(self):
+        test_prover = Prover(self.test_poly)
+        with self.assertRaises(ValueError):
+            remaining_var = test_prover.generate_univariate_polynomial(0)
+        with self.assertRaises(ValueError):
+            remaining_var = test_prover.generate_univariate_polynomial(99)
+        remaining_var = test_prover.generate_univariate_polynomial(1)
+        print(remaining_var)
+
