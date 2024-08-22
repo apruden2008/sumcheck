@@ -17,14 +17,18 @@ class TestPolynomial(unittest.TestCase):
                       Term(self.test_field_elements[2], 2, 4),
                       Term(self.test_field_elements[3], 3, 1)]
         self.test_points_vector = [3,2,2]
-        # 1 + 1(2) + 2(2) + 3(2)
+        # 1 + 1(2) + 2(2)^4 + 3(2)
+
+    # Flesh out with more tests
+    def test_create(self):
+        test_poly = Polynomial(self.test_terms)
 
     def test_evaluation(self):
         test_poly = Polynomial(self.test_terms)
-        print(str(test_poly))
+        print(test_poly)
         result = test_poly.evaluate(self.test_points_vector)
         self.assertEqual(result, FieldElement(0, 7))
-        print(str(result))
+        print(result)
 
     def test_zero_evaluation(self):
         test_zero_vector = [0,0,0]

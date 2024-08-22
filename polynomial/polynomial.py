@@ -22,11 +22,13 @@ class Polynomial:
         """
         if not all(isinstance(tm, Term) for tm in terms):
             raise ValueError("All coefficients must be Terms.")
+        self.terms = terms
         if terms[0].var_number == 0:
             self.constant_term = terms[0]
-            self.terms = terms[1:]
+            self.var_terms = terms[1:]
         else: 
-            self.terms = terms
+            self.constant_term = None
+            self.var_terms = terms
         self.prime = terms[0].coefficient.prime  # TODO make this into an actual test
 
     def __repr__(self):
@@ -66,7 +68,7 @@ class Polynomial:
         result = FieldElement(0, self.prime)
         # constant term must be passed first
         result += self.constant_term.coefficient
-        for i, term in enumerate(self.terms):
+        for i, term in enumerate(self.var_terms):
             result += term.evaluate(points[i])
         return result
 
@@ -91,4 +93,4 @@ class Polynomial:
         Returns:
             int: The number of indeterminate variables in the polynomial
         """
-        return len(self.terms)
+        return len(self.var_terms)

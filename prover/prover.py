@@ -34,7 +34,7 @@ class Prover:
         """
         return self.polynomial.evaluate(point)
 
-    def generate_hypercube_points(self, dims = 0):
+    def _generate_hypercube_points(self, dims = 0):
         """
         Generate all points in the Boolean hypercube {0, 1}^n.
 
@@ -44,7 +44,7 @@ class Prover:
         Returns: 
             A generator of all points in the Boolean hypercube.
         """
-        if dims >= len(self.polynomial.terms):
+        if dims >= len(self.polynomial.var_terms):
             raise ValueError("Cannot reduce to less dimensions than variables")
         n = self.polynomial.dims() - dims
 
@@ -58,9 +58,9 @@ class Prover:
         Returns:
             Generator for the hypercube points for the given polynomial
         """
-        return self.generate_hypercube_points()
+        return self._generate_hypercube_points()
 
-    def sum_hypercube(self):
+    def sum_hypercube(self, dims = 0):
         """
         Sum the polynomial over the Boolean hypercube {0, 1}^n.
 
@@ -68,7 +68,7 @@ class Prover:
             The sum of the evaluations of the polynomial over the Boolean hypercube
         """
         total_sum = FieldElement(0, self.polynomial.prime)
-        for point in self.generate_hypercube_points():
+        for point in self._generate_hypercube_points(dims):
             total_sum += self.evaluate_polynomial(point)
         return total_sum
 
@@ -91,13 +91,18 @@ class Prover:
         Returns:
             A new Polynomial object with a single variable
         """
-        if variable <= 0 or variable > len(self.polynomial.terms):
+        if variable <= 0 or variable > len(self.polynomial.var_terms):
             raise ValueError("Cannot create a univariate polynomial from a term that doesn't exist. Please check the variable number argument and try again")
+        new_terms = []
+        old_terms = []
         for term in self.polynomial.terms:
             if term.var_number == variable:
-                return term # test
-        # return new_polynomial
-
+                new_terms.append(term)    
+            else:
+                old_terms.append(term)
+        # Assumes you go in variable order
+        new_poly = Polynomial(old_terms)
+        Prover(new_poly).sum_hypercube(1)
         
     def send_univariate_polynomial(self, fixed_variable):
         """

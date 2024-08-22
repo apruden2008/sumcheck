@@ -17,7 +17,7 @@ class TestProver(unittest.TestCase):
             FieldElement(3, self.test_modulus)
         ]
         self.test_terms = [
-            Term(self.test_field_elements[0], 0, 0), 
+            Term(self.test_field_elements[0], 0, 1), 
             Term(self.test_field_elements[1], 1, 1),
             Term(self.test_field_elements[2], 2, 1),
             Term(self.test_field_elements[3], 3, 1)
@@ -26,10 +26,9 @@ class TestProver(unittest.TestCase):
         self.test_point = [2,2,2]
 
     def test_create(self):
-
-        # Create a prover object from the test polynomial
-        Prover(self.test_poly)
-
+        print(self.test_poly)
+        # test_prover = Prover(self.test_poly)
+        # self.assertEqual(test_prover.polynomial,Polynomial(self.test_terms))
         # Should fail if you pass in the list of terms instead of Polynomial object
         with self.assertRaises(TypeError):
             Prover(self.test_terms)
@@ -42,7 +41,7 @@ class TestProver(unittest.TestCase):
     def test_gen_hypercube(self):
         test_prover = Prover(self.test_poly)
         hypercube_points = []
-        for point in test_prover.generate_hypercube_points():
+        for point in test_prover._generate_hypercube_points():
             hypercube_points.append(point)
         self.assertEqual([[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]], hypercube_points)
 
@@ -57,12 +56,14 @@ class TestProver(unittest.TestCase):
 
     def test_gen_partial_hypercube(self):
         test_prover = Prover(self.test_poly)
-        for point in test_prover.generate_hypercube_points(1):
+        for point in test_prover._generate_hypercube_points():
             print(point)
-        for point in test_prover.generate_hypercube_points(2):
+        for point in test_prover._generate_hypercube_points(1):
+            print(point)
+        for point in test_prover._generate_hypercube_points(2):
             print(point)
         with self.assertRaises(ValueError):
-            for point in test_prover.generate_hypercube_points(3):
+            for point in test_prover._generate_hypercube_points(3):
                 print(point)
 
     def test_return_fixed_polynomial(self):
