@@ -46,6 +46,21 @@ class TestPolynomial(unittest.TestCase):
         result = test_poly.dims()
         self.assertEqual(result, len(self.test_terms)-1) # one less because there is a constant, this could be more robust
 
+    def test_var_dict(self):
+        test_poly = Polynomial(self.test_terms)
+        test_poly_term_dict = test_poly.term_dict()
+        print(test_poly_term_dict)
+        
+    def test_get_coeff_list(self):
+        test_poly = Polynomial(self.test_terms)
+        test_poly_coeff_list = test_poly.get_coeff_list()
+        print(test_poly_coeff_list)
+
+    def test_get_vars_list(self):
+        test_poly = Polynomial(self.test_terms)
+        test_poly_vars_list = test_poly.get_vars_list()
+        print(test_poly_vars_list)
+
 if __name__ == '__main__':
     unittest.main()
 

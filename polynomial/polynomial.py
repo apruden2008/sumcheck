@@ -94,3 +94,29 @@ class Polynomial:
             int: The number of indeterminate variables in the polynomial
         """
         return len(self.var_terms)
+
+    def term_dict(self):
+        """
+        Return a list of dictionaries for each term in the polynomial
+        
+        Returns:
+            list: a list of dictionaries for the attributes of the Terms that make up the polynomial
+        """
+        term_attr_list = []
+        for term in self.terms:
+            term_attr_list.append(term.as_dict())
+        return term_attr_list
+
+    def get_vars_list(self):
+        """
+        Return a list of variable numbers as integers for each term in the polynomial
+        """
+        return [term["var_number"] for term in self.term_dict() if term["var_number"] > 0]
+
+    def get_coeff_list(self):
+        """ 
+        Return a list of coefficients as Field Elements for each term in the Polynomial
+        """
+        return [term["coefficient"] for term in self.term_dict() if term["var_number"] > 0]
+
+

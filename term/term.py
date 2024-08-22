@@ -65,6 +65,16 @@ class Term:
         """
         return self.var_exponent
 
+    def as_dict(self):
+        """
+        Return the attributes of the term as a dictionary
+        """
+        return {
+            "coefficient": self.coefficient,
+            "var_number": self.var_number,
+            "var_exponent": self.var_exponent
+        }
+
     def evaluate(self, point):
         """
         Evaluate the term at a given point
