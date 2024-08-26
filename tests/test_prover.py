@@ -23,6 +23,7 @@ class TestProver(unittest.TestCase):
             Term(self.test_field_elements[3], 3, 1)
         ]
         self.test_poly = Polynomial(self.test_terms)
+        #1 + x1 + 2x2 + 3x3
         self.test_point = [2,2,2]
 
     def test_create(self):
@@ -72,6 +73,7 @@ class TestProver(unittest.TestCase):
             remaining_var = test_prover.generate_univariate_polynomial(0)
         with self.assertRaises(ValueError):
             remaining_var = test_prover.generate_univariate_polynomial(99)
+        # pdb.set_trace()
         remaining_var = test_prover.generate_univariate_polynomial(1)
         print(remaining_var)
 

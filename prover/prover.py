@@ -1,4 +1,5 @@
 from field_element import FieldElement
+from term import Term
 from polynomial import Polynomial
 
 # A prover class for the sumcheck protocol
@@ -93,6 +94,7 @@ class Prover:
         """
         if variable <= 0 or variable > len(self.polynomial.var_terms):
             raise ValueError("Cannot create a univariate polynomial from a term that doesn't exist. Please check the variable number argument and try again")
+        # TODO redo all this as list comprehension
         new_terms = []
         old_terms = []
         for term in self.polynomial.terms:
@@ -101,8 +103,23 @@ class Prover:
             else:
                 old_terms.append(term)
         # Assumes you go in variable order
-        new_poly = Polynomial(old_terms)
-        Prover(new_poly).sum_hypercube(1)
+        terms_to_evaluate = Polynomial(old_terms)
+
+        # Create a new constant term for the univariate polynomial by evaluating & summing all boolean inputs for other variables
+        new_constant = Prover(terms_to_evaluate).sum_hypercube()
+        # Convert the above into a Term object
+        new_constant_term = Term(new_constant, 0, 1)
+
+        # Create the new variable coefficient by multiplying the variable left free by two times the number of variables that have been fixed
+        new_var_coefficient =2**len(terms_to_evaluate.var_terms)
+        # Turn the result above into Field Element
+        new_var_coefficient_fe = FieldElement(new_var_coefficient, self.polynomial.prime)
+        # Turn the result above into a Term, using the `var_number` passed in as an argument (TODO need to keep the power)
+        new_var_term = Term(new_var_coefficient, variable, 1)
+
+        # Combine those terms into a new univariate polynomial and return this polynomial
+        univariate_poly = Polynomial([new_constant_term, new_var_term])
+        return(univariate_poly)
         
     def send_univariate_polynomial(self, fixed_variable):
         """
