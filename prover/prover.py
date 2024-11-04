@@ -131,4 +131,3 @@ class Prover:
         Returns:
             A new Polynomial object with one variable fixed
         """
-
